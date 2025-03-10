@@ -1,4 +1,5 @@
 import { notFound } from "next/navigation";
+import { getLocale } from "next-intl/server";
 
 import { PageBuilder } from "@/components/pagebuilder";
 import { client } from "@/lib/sanity/client";
@@ -47,6 +48,8 @@ export default async function SlugPage({
 }: {
   params: Promise<{ slug: string[] }>;
 }) {
+  const locale = await getLocale();
+  console.log("locale", locale);
   const { slug } = await params;
   const slugString = slug.join("/");
   const { data: pageData } = await fetchSlugPageData(slugString);

@@ -1,6 +1,10 @@
 "use client";
 import { useOptimistic } from "@sanity/visual-editing/react";
-import { createDataAttribute, type SanityDocument } from "next-sanity";
+import {
+  createDataAttribute,
+  stegaClean,
+  type SanityDocument,
+} from "next-sanity";
 import type { ComponentType } from "react";
 
 import { dataset, projectId, studioUrl } from "@/lib/sanity/api";
@@ -13,7 +17,7 @@ import { FeatureCardsWithIcon } from "./sections/feature-cards-with-icon";
 import { HeroBlock } from "./sections/hero";
 import { ImageLinkCards } from "./sections/image-link-cards";
 import { SubscribeNewsletter } from "./sections/subscribe-newsletter";
-
+import { useAudience } from "./audience-provider";
 type PageBlock = NonNullable<
   NonNullable<QueryHomePageDataResult>["pageBuilder"]
 >[number];
@@ -46,6 +50,8 @@ export function PageBuilder({
   id,
   type,
 }: PageBuilderProps) {
+  const { audience } = useAudience();
+
   const pageBuilder = useOptimistic<PageBlock[], SanityDocument<PageData>>(
     initialPageBuilder,
     (currentPageBuilder, action) => {
@@ -70,6 +76,11 @@ export function PageBuilder({
       }).toString()}
     >
       {pageBuilder.map((block) => {
+        if (
+          block.excludedAudience &&
+          stegaClean(block.excludedAudience) === audience
+        )
+          return null;
         const Component = BLOCK_COMPONENTS[block._type] as ComponentType<
           PagebuilderType<BlockType>
         >;

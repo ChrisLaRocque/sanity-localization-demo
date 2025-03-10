@@ -335,6 +335,7 @@ export type Hero = {
       _key: string;
     } & Button
   >;
+  excludedAudience?: "retail" | "professional";
 };
 
 export type PageBuilder = Array<
@@ -1203,6 +1204,7 @@ export type QueryHomePageDataResult = {
           openInNewTab: boolean | null;
           href: string | null;
         }> | null;
+        excludedAudience?: "professional" | "retail";
       }
     | {
         _key: string;
@@ -1620,6 +1622,7 @@ export type QuerySlugPageDataResult = {
           openInNewTab: boolean | null;
           href: string | null;
         }> | null;
+        excludedAudience?: "professional" | "retail";
       }
     | {
         _key: string;
@@ -2038,6 +2041,7 @@ export type QueryBlogIndexPageDataResult = {
           openInNewTab: boolean | null;
           href: string | null;
         }> | null;
+        excludedAudience?: "professional" | "retail";
       }
     | {
         _key: string;

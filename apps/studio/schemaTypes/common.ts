@@ -28,3 +28,12 @@ export const iconField = defineField({
   },
   type: "iconPicker",
 });
+
+export const audienceField = defineField({
+  name: "excludedAudience",
+  type: "string",
+  description: "Select the audience that should not see this content",
+  options: {
+    list: ["retail", "professional"],
+  },
+});

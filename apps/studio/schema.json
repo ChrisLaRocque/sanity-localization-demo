@@ -2338,6 +2338,23 @@
             }
           },
           "optional": true
+        },
+        "excludedAudience": {
+          "type": "objectAttribute",
+          "value": {
+            "type": "union",
+            "of": [
+              {
+                "type": "string",
+                "value": "retail"
+              },
+              {
+                "type": "string",
+                "value": "professional"
+              }
+            ]
+          },
+          "optional": true
         }
       }
     }
